@@ -1,0 +1,49 @@
+﻿body
+{
+	padding-top: 60px;
+	overflow-y: scroll;
+}
+
+.navbar .container-fluid { height: 2em; } /* Needs 2em to fit the search-box */
+
+.nameHeader
+{
+	width: 100%;
+}
+
+#map_canvas
+{
+	min-width: 100%;
+	min-height: 300px;
+}
+
+.name
+{
+	width: 100%;
+	text-overflow: ellipsis;
+}
+
+.table td.bikeInfo, .table td.distanceInfo
+{
+    white-space: nowrap;
+}
+
+.table td.bikeInfo 
+{
+    text-align: right;
+}
+
+#searchHelp 
+{
+    padding-bottom: 1.3em;
+}
+
+span.deleteicon span {
+    position: absolute;
+    display: block;
+    top: 7px;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
