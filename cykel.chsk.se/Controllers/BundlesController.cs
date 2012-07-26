@@ -7,14 +7,14 @@ using System.Web.Optimization;
 
 namespace cykel.chsk.se.Controllers
 {
-    public class BundlesController : Controller
+    public partial class BundlesController : Controller
     {
-        public ActionResult Scripts(string version)
+        public virtual ActionResult Scripts(string version)
         {
             return BundleResponse("~/Scripts/js");
         }
 
-        public ActionResult Styles(string version)
+        public virtual ActionResult Styles(string version)
         {
             return BundleResponse("~/Content/css");
         }

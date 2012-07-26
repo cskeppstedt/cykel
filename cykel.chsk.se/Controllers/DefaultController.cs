@@ -7,9 +7,9 @@ using System.Web.Optimization;
 
 namespace cykel.chsk.se.Controllers
 {
-    public class DefaultController : Controller
+    public partial class DefaultController : Controller
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View();
         }
