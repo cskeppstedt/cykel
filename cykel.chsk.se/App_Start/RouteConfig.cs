@@ -13,6 +13,8 @@ namespace cykel.chsk.se
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
+            routes.IgnoreRoute("robots.txt");
 
             routes.MapHttpRoute(
                 name: "DefaultApi",
