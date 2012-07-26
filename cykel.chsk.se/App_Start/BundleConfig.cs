@@ -9,9 +9,10 @@ namespace cykel.chsk.se
         {
             bundles.Add(new ScriptBundle("~/Scripts/js")
                 .Include("~/Scripts/modernizr.custom.js")
-                .Include("~/Scripts/bootstrap.min.js")
+                .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/knockout-2.1.0.js")
                 .Include("~/Scripts/knockout-mapping.js")
+                .Include("~/Scripts/jquery.signalR-0.5.2.js")
                 .Include("~/Scripts/utils.js")
                 .Include("~/Scripts/site.js"));
             

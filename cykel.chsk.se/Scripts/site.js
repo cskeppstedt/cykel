@@ -1,25 +1,4 @@
-﻿/** Converts numeric degrees to radians */
-if (typeof Number.prototype.toRad == 'undefined') {
-    Number.prototype.toRad = function () {
-        return this * Math.PI / 180;
-    }
-}
-
-/** Converts radians to numeric (signed) degrees */
-if (typeof Number.prototype.toDeg == 'undefined') {
-    Number.prototype.toDeg = function () {
-        return this * 180 / Math.PI;
-    }
-}
-
-$(function () {
-    var normalizeData = function (options) {
-        options.data.name = window.utils.capitalize(options.data.name);
-        options.data.lat = options.data.lat / 1E6;
-        options.data.lng = options.data.lng / 1E6;
-        return options;
-    }
-
+﻿$(function () {
     var mappings = {
         'stations': {
             key: function (data) { return ko.utils.unwrapObservable(data.id); },
@@ -27,16 +6,10 @@ $(function () {
         }
     };
 
-    var stationMapping = {
-        'name': { update: function (options) { return window.utils.capitalize(options.data); } },
-        'lat': { update: function (options) { return options.data / 1E6; } },
-        'lng': { update: function (options) { return options.data / 1E6; } }
-    };
-
     var stationModel = function (options) {
         var self = this;
 
-        ko.mapping.fromJS(options.data, stationMapping, self);
+        ko.mapping.fromJS(options.data, {}, self);
 
         self.isFavorite = ko.observable(false);
 
@@ -100,6 +73,7 @@ $(function () {
         self.searchStations = ko.observable('');
         self.searchMap = ko.observable('');
         self.locationMarker = undefined;
+        self.initialized = ko.observable(false);
 
         self.listStations = ko.computed(function () {
             var filter = $.trim(self.searchStations()).toLowerCase();
@@ -119,12 +93,12 @@ $(function () {
             $(ev.srcElement).prev('input').focus();
         };
 
-        self.clearSearchStations = function (d,ev) {
+        self.clearSearchStations = function (d, ev) {
             self.searchStations('');
             focusSearchBox(ev);
         };
 
-        self.clearSearchMap = function (d,ev) {
+        self.clearSearchMap = function (d, ev) {
             self.searchMap('');
             focusSearchBox(ev);
         };
@@ -199,33 +173,38 @@ $(function () {
     window.viewModel = new viewModel();
     ko.applyBindings(window.viewModel);
 
-    var getData = function (callback) {
-        $.getJSON('http://api.citybik.es/goteborg.json?callback=?', function (data) {
-            ko.mapping.fromJS({ stations: data }, window.viewModel);
-            if ($.isFunction(callback))
-                callback();
-        });
-    };
-
-    var poll = function () {
-        getData(function () {
-            setTimeout(poll, 60 * 1000);
-        });
-    }
-
-    getData(function () {
-        window.utils.setFavorites();
-
-        window.viewModel.favorites.subscribe(function (val) {
-            window.utils.saveFavorites(val);
-        });
-
-        setTimeout(poll, 60 * 1000);
-    });
-
     $('#searchHelp').find('a').click(function () {
         window.viewModel.searchMap($(this).text());
         window.viewModel.search();
         return false;
     });
+
+    // signalr connection
+
+    var myHub = $.connection.defaultHub;
+    
+    $.connection.hub.error(function () {
+        console.log("An signalr error occurred!");
+    });
+
+    $.connection.hub.start()
+        .done(function () {
+            console.log("Connected!");
+        })
+        .fail(function () {
+            console.log("Connectection failed!");
+        });
+
+    myHub.onDataUpdated = function (data) {
+        console.log('data received');
+        ko.mapping.fromJS(data, window.viewModel);
+
+        if (!window.viewModel.initialized()) {
+            window.viewModel.initialized(true);
+            window.utils.setFavorites();
+            window.viewModel.favorites.subscribe(function (val) {
+                window.utils.saveFavorites(val);
+            });
+        }
+    };
 });

@@ -1,4 +1,18 @@
-﻿window.utils = (function () {
+﻿/** Converts numeric degrees to radians */
+if (typeof Number.prototype.toRad == 'undefined') {
+    Number.prototype.toRad = function () {
+        return this * Math.PI / 180;
+    }
+}
+
+/** Converts radians to numeric (signed) degrees */
+if (typeof Number.prototype.toDeg == 'undefined') {
+    Number.prototype.toDeg = function () {
+        return this * 180 / Math.PI;
+    }
+}
+
+window.utils = (function () {
     var favoritesKey = "cykel.chsk.se.favorites";
     var _geocoder = new google.maps.Geocoder();
 
@@ -91,14 +105,6 @@
             });
 
             window.map.fitBounds(bounds);
-        },
-
-        capitalize: function (str) {
-            var parts = ko.utils.arrayMap(str.split("/"), function (s) {
-                return $.trim(s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
-            });
-            
-            return parts.join(" / ");
         },
 
         makeMarker: function (location, title, markerImageUrl, clickCallback) {
