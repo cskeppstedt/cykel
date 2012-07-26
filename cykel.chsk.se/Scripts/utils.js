@@ -13,7 +13,7 @@ if (typeof Number.prototype.toDeg == 'undefined') {
 }
 
 window.utils = (function () {
-    var favoritesKey = "cykel.chsk.se.favorites";
+    var favoriteIdsKey = "cykel.chsk.se.favoriteIds";
     var _geocoder = new google.maps.Geocoder();
 
     var fixMapSize = function () {
@@ -128,33 +128,24 @@ window.utils = (function () {
             return a.name().toLowerCase() < b.name().toLowerCase() ? -1 : 1;
         },
 
-        saveFavorites: function (stations) {
+        saveFavoritesIds: function (ids) {
             if (!Modernizr.localstorage)
                 return false;
             
-            var ids = ko.utils.arrayMap(stations, function (s) { return s.id(); });
-            var value = JSON.stringify({ favorites: ids });
-
-            window.localStorage[favoritesKey] = value;
+            var value = JSON.stringify(ids);
+            window.localStorage[favoriteIdsKey] = value;
             console.log('saved to local storage', value);
             return true;
         },
 
-        setFavorites: function () {
-            if (!Modernizr.localstorage)
-                return;
-
-            var value = window.localStorage[favoritesKey];
-            console.log('read from local storage', value);
-
-            if (value) {
-                var json = JSON.parse(value);
-                if (json && json.favorites) {
-                    ko.utils.arrayForEach(json.favorites, function (id) {
-                        window.utils.getStationById(id + '').isFavorite(true);
-                    });
-                }
+        loadFavoritesIds: function () {
+            if (Modernizr.localstorage) {
+                var value = window.localStorage[favoriteIdsKey];
+                if (value)
+                    return JSON.parse(value) || [];
             }
+
+            return [];
         }
     }
 })();

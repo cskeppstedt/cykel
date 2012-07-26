@@ -11,10 +11,16 @@
 
         ko.mapping.fromJS(options.data, {}, self);
 
-        self.isFavorite = ko.observable(false);
+        self.isFavorite = ko.computed(function () {
+            return window.viewModel.favoriteIds().indexOf(self.id()) >= 0;
+        });
 
         self.toggleFavorite = function () {
-            self.isFavorite(!self.isFavorite());
+            if (self.isFavorite()) {
+                window.viewModel.favoriteIds.remove(self.id());
+            } else {
+                window.viewModel.favoriteIds.push(self.id());
+            }
         };
 
         self.getLocation = function () {
@@ -42,7 +48,8 @@
         self.distance = Math.round(distance);
         self.nr = nr;
 
-        self.marker = window.utils.makeMarker(station.getLocation(), station.name(), "Content/images/markers-" + nr + ".png");
+        var url = "http://d1ym5253oqhv2q.cloudfront.net/Content/images/markers-" + nr + ".png";
+        self.marker = window.utils.makeMarker(station.getLocation(), station.name(), url);
 
         self.releaseMarker = function () {
             if (self.marker) {
@@ -62,6 +69,11 @@
         ko.mapping.fromJS({
             stations: []
         }, mappings, self);
+
+        self.favoriteIds = ko.observableArray(window.utils.loadFavoritesIds());
+        self.favoriteIds.subscribe(function (val) {
+            window.utils.saveFavoritesIds(val);
+        });
 
         self.favorites = ko.computed(function () {
             return ko.utils.arrayFilter(self.stations(), function (s) {
@@ -183,28 +195,15 @@
 
     var myHub = $.connection.defaultHub;
     
-    $.connection.hub.error(function () {
-        console.log("An signalr error occurred!");
-    });
 
-    $.connection.hub.start()
-        .done(function () {
-            console.log("Connected!");
-        })
-        .fail(function () {
-            console.log("Connectection failed!");
-        });
+    setTimeout(function () {
+        $.connection.hub.start();
+    }, 500);
 
     myHub.onDataUpdated = function (data) {
-        console.log('data received');
         ko.mapping.fromJS(data, window.viewModel);
 
-        if (!window.viewModel.initialized()) {
+        if (!window.viewModel.initialized())
             window.viewModel.initialized(true);
-            window.utils.setFavorites();
-            window.viewModel.favorites.subscribe(function (val) {
-                window.utils.saveFavorites(val);
-            });
-        }
     };
 });
