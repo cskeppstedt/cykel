@@ -17,9 +17,9 @@ namespace cykel.chsk.se
                 .Include("~/Scripts/site.js"));
             
             bundles.Add(new StyleBundle("~/Content/css")
-                .Include("~/Content/bootstrap.min.css")
+                .Include("~/Content/bootstrap.css")
                 .Include("~/Content/site.css")
-                .Include("~/Content/bootstrap-responsive.min.css"));
+                .Include("~/Content/bootstrap-responsive.css"));
         }
     }
 }
