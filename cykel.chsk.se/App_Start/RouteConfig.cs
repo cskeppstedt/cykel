@@ -21,6 +21,11 @@ namespace cykel.chsk.se
             );
 
             routes.MapRoute(
+                name: "Bundles",
+                url: "{controller}/{action}/{version}"
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
