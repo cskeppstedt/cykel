@@ -14,7 +14,7 @@ namespace cykel.chsk.se.Extensions
         {
             string version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
             string baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
-            return baseUrl + "Bundles/" + action + "/" + version;
+            return baseUrl + "/Bundles/" + action + "/" + version;
         }
 
         public static MvcHtmlString ScriptsBundleUrl(this UrlHelper helper)
@@ -27,6 +27,22 @@ namespace cykel.chsk.se.Extensions
         {
             string url = BundleTable.Bundles.ResolveBundleUrl("~/Content/css");
             return new MvcHtmlString(BundleUrl(helper, url, "Styles"));
+        }
+
+        public static MvcHtmlString StaticContent(this UrlHelper helper, string absolutePath)
+        {
+            if (!absolutePath.StartsWith("/"))
+                absolutePath = "/" + absolutePath;
+
+            if (BundleTable.EnableOptimizations)
+            {
+                string baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
+                return new MvcHtmlString(baseUrl + absolutePath);
+            }
+            else
+            {
+                return new MvcHtmlString(absolutePath);
+            }
         }
     }
 }

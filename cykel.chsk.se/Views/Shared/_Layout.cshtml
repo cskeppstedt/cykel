@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0; maximum-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    
     <title>@(ViewBag.Title ?? "cykel.chsk.se")</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="@Url.StaticContent(Links.Content.images.touch_icon_v1_57_png)" />
+    <link rel="apple-touch-icon" sizes="72x72" href="@Url.StaticContent(Links.Content.images.touch_icon_v1_72_png)" />
+    <link rel="apple-touch-icon" sizes="114x114" href="@Url.StaticContent(Links.Content.images.touch_icon_v1_114_png)" />
+    <link rel="apple-touch-icon" sizes="144x144" href="@Url.StaticContent(Links.Content.images.touch_icon_v1_144_png)" />
+    
     @if (BundleTable.EnableOptimizations)
     {
         <link type="text/css" rel="stylesheet" href="@Url.StylesBundleUrl()" />
