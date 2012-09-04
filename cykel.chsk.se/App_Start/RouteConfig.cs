@@ -15,6 +15,7 @@ namespace cykel.chsk.se
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("robots.txt");
+            routes.IgnoreRoute("cykel.manifest");
 
             routes.MapHttpRoute(
                 name: "DefaultApi",

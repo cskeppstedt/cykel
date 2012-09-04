@@ -133,6 +133,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\StationModel.cs" />
     <Compile Include="T4MVC\BundlesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -149,7 +150,6 @@
     <Compile Include="Hubs\StationPollWorker.cs" />
     <Compile Include="Models\CitybikesApiModel.cs" />
     <Compile Include="Models\ClientDataModel.cs" />
-    <Compile Include="Models\StationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T4MVC\SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -187,14 +187,20 @@
     <Content Include="robots.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\appcache.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="cykel.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\google.maps-v3-vsdoc.js" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.signalR-0.5.2.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout-mapping.js" />
+    <Content Include="Scripts\models.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr.custom.js" />
     <Content Include="Scripts\site.js" />
