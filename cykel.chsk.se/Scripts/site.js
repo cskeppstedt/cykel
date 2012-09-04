@@ -2,6 +2,15 @@
     window.viewModel = new models.viewModel();
     ko.applyBindings(window.viewModel);
 
+    if (window.applicationCache) {
+        window.applicationCache.addEventListener('updateready', function (e) {
+            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                window.applicationCache.swapCache();
+                window.viewModel.updateReady(true);
+            }
+        }, false);
+    }
+
     $('#searchHelp').find('a').click(function () {
         window.viewModel.searchMap($(this).text());
         window.viewModel.search();

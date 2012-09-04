@@ -2,7 +2,7 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <ul class="nav" data-bind="foreach: views">
-                <li data-bind="css: { 'active' : $root.view().key() == key() }">
+                <li data-bind="css: { 'active' : $root.view().key() == key() }, visible: isVisible">
                     <a href="#" data-bind="click: clicked, attr: {title: title()}">
                         <i data-bind="attr: {class: 'icon-white ' + icon()}"></i>
                         <span data-bind="text: title" class="hidden-phone"></span>
@@ -76,6 +76,11 @@
         <div class="span9">
             <div id="map_canvas"></div>
         </div>
+    </div>
+
+    <div class="row-fluid" data-bind="visible: view().key()=='update'" id="update-wrapper">
+        <h1>En uppdatering finns tillgänglig!</h1>
+        <p><a href="/">Ladda om sidan</a> för att uppdatera till den senaste versionen.</p>
     </div>
 </div>
 

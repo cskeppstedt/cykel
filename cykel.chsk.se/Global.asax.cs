@@ -16,11 +16,11 @@ namespace cykel.chsk.se
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static bool EnableOptimizations
+        public static bool EnableBundles
         {
             get
             {
-                string setting = ConfigurationManager.AppSettings["EnableOptimizations"];
+                string setting = ConfigurationManager.AppSettings["EnableBundles"];
                 if (string.IsNullOrWhiteSpace(setting))
                     return false;
                 
@@ -32,7 +32,7 @@ namespace cykel.chsk.se
         {
             AreaRegistration.RegisterAllAreas();
             
-            BundleTable.EnableOptimizations = EnableOptimizations;
+            BundleTable.EnableOptimizations = EnableBundles;
             
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

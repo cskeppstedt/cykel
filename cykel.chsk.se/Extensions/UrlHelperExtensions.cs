@@ -10,11 +10,27 @@ namespace cykel.chsk.se.Extensions
 {
     public static class UrlHelperExtensions
     {
+        private static bool EnableCloudfront
+        {
+            get
+            {
+                string setting = ConfigurationManager.AppSettings["EnableCloudfront"];
+                if (setting == null)
+                    return false;
+
+                return setting.Equals(bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
         private static string BundleUrl(UrlHelper helper, string url, string action)
         {
             string version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
-            string baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
-            return baseUrl + "/Bundles/" + action + "/" + version;
+            string bundleUrl = "/Bundles/" + action + "/" + version;
+            
+            if (EnableCloudfront)
+                return ConfigurationManager.AppSettings["cloudfront.baseurl"] + bundleUrl;
+
+            return bundleUrl;
         }
 
         public static MvcHtmlString ScriptsBundleUrl(this UrlHelper helper)
@@ -34,7 +50,7 @@ namespace cykel.chsk.se.Extensions
             if (!absolutePath.StartsWith("/"))
                 absolutePath = "/" + absolutePath;
 
-            if (BundleTable.EnableOptimizations)
+            if (EnableCloudfront)
             {
                 string baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
                 return new MvcHtmlString(baseUrl + absolutePath);

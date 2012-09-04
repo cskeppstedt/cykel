@@ -116,11 +116,14 @@
             focusSearchBox(ev);
         };
 
+        self.updateReady = ko.observable(false);
+
         self.views = ko.observableArray([
             new models.viewPage('icon-star', 'favorites', 'Favoriter', { isVisible: ko.computed(function () { return self.favorites().length > 0; }) }),
             new models.viewPage('icon-list', 'stations', 'Stationer'),
             new models.viewPage('icon-map-marker', 'find', 'Hitta station', { onSelected: window.utils.initMap }),
-            new models.viewPage('icon-question-sign', 'about', 'Om')
+            new models.viewPage('icon-question-sign', 'about', 'Om'),
+            new models.viewPage('icon-refresh', 'update', 'Uppdatering!', { isVisible: ko.computed(function () { return self.updateReady(); }) })
         ]);
 
         self.view = ko.observable(ko.utils.arrayFirst(self.views(), function(v) { return v.isVisible(); }));

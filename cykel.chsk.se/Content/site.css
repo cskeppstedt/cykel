@@ -47,3 +47,7 @@ span.deleteicon span {
     height: 16px;
     cursor: pointer;
 }
+
+#update-wrapper p {
+    margin: 1em 0;
+}

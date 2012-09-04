@@ -189,8 +189,8 @@
     </Content>
     <Content Include="Scripts\appcache.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="cykel.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="cache.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\google.maps-v3-vsdoc.js" />

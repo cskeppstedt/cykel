@@ -167,6 +167,11 @@ window.utils = (function () {
             }
 
             return [];
+        },
+
+        log: function () {
+            if (console && console.log)
+                console.log('Log: ', arguments);
         }
     }
 })();
