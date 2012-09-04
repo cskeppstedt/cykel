@@ -13,7 +13,11 @@ if (typeof Number.prototype.toDeg == 'undefined') {
 }
 
 window.utils = (function () {
-    var favoriteIdsKey = "cykel.chsk.se.favoriteIds";
+    var storageKeys = {
+        favorites: "cykel.chsk.se.favoriteIds",
+        stations: "cykel.chsk.se.stations"
+    };
+
     var _geocoder = new google.maps.Geocoder();
 
     var fixMapSize = function () {
@@ -63,7 +67,7 @@ window.utils = (function () {
 
             window.centerPos = myOptions.center;
             window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
+            /*
             var fitAllPoints = true;
 
             if (Modernizr.geolocation) {
@@ -84,7 +88,7 @@ window.utils = (function () {
                 window.utils.fitMap(ko.utils.arrayMap(window.viewModel.stations(), function (s) {
                     return new google.maps.LatLng(s.lat(), s.lng())
                 }));
-            }
+            }*/
         },
 
         getStationById: function (id) {
@@ -133,14 +137,31 @@ window.utils = (function () {
                 return false;
             
             var value = JSON.stringify(ids);
-            window.localStorage[favoriteIdsKey] = value;
-            console.log('saved to local storage', value);
+            window.localStorage[storageKeys.favorites] = value;
             return true;
         },
 
         loadFavoritesIds: function () {
             if (Modernizr.localstorage) {
-                var value = window.localStorage[favoriteIdsKey];
+                var value = window.localStorage[storageKeys.favorites];
+                if (value)
+                    return JSON.parse(value) || [];
+            }
+
+            return [];
+        },
+
+        saveStations: function (stations) {
+            if (!Modernizr.localstorage)
+                return;
+
+            var value = JSON.stringify(stations);
+            window.localStorage[storageKeys.stations] = value;
+        },
+
+        loadStations: function () {
+            if (Modernizr.localstorage) {
+                var value = window.localStorage[storageKeys.stations];
                 if (value)
                     return JSON.parse(value) || [];
             }
