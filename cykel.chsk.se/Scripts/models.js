@@ -123,7 +123,7 @@
             new models.viewPage('icon-question-sign', 'about', 'Om')
         ]);
 
-        self.view = ko.observable(self.views()[0]);
+        self.view = ko.observable(ko.utils.arrayFirst(self.views(), function(v) { return v.isVisible(); }));
 
         self.view.subscribe(function () {
             self.view().onSelected();
