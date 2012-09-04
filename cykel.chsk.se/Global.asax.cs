@@ -16,13 +16,23 @@ namespace cykel.chsk.se
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static bool EnableOptimizations
+        {
+            get
+            {
+                string setting = ConfigurationManager.AppSettings["EnableOptimizations"];
+                if (string.IsNullOrWhiteSpace(setting))
+                    return false;
+                
+                return setting.Equals(bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             
-            #if (!DEBUG)
-            BundleTable.EnableOptimizations = true;
-            #endif
+            BundleTable.EnableOptimizations = EnableOptimizations;
             
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
