@@ -15,12 +15,12 @@
     
     if (typeof ($) !== "function") {
         // no jQuery!
-        throw "SignalR v0.5.3: jQuery not found. Please ensure jQuery is referenced before the SignalR.js file.";
+        throw "SignalR: jQuery not found. Please ensure jQuery is referenced before the SignalR.js file.";
     }
     
     if (!window.JSON) {
         // no JSON!
-        throw "SignalR v0.5.3: No JSON parser found. Please ensure json2.js is referenced before the SignalR.js file if you need to support clients without native JSON parsing support, e.g. IE<8.";
+        throw "SignalR: No JSON parser found. Please ensure json2.js is referenced before the SignalR.js file if you need to support clients without native JSON parsing support, e.g. IE<8.";
     }
     
     var signalR,

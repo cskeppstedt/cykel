@@ -4,19 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
+using cykel.chsk.se.Extensions;
 
 namespace cykel.chsk.se.Controllers
 {
     public partial class BundlesController : Controller
     {
+        private static readonly string JsVirtualPath = "~/Scripts/js";
+        private static readonly string CssVirtualPath = "~/Content/css";
+
         public virtual ActionResult Scripts(string version)
         {
-            return BundleResponse("~/Scripts/js");
+            return BundleResponse(JsVirtualPath);
         }
 
         public virtual ActionResult Styles(string version)
         {
-            return BundleResponse("~/Content/css");
+            return BundleResponse(CssVirtualPath);
         }
 
         private ActionResult BundleResponse(string bundleVirtualPath)
@@ -36,6 +40,17 @@ namespace cykel.chsk.se.Controllers
             string version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
             Response.Cache.SetETag(version);
             return Content(response.Content, response.ContentType);
+        }
+
+        public virtual ActionResult GetVersion(string bundle)
+        {
+            string virtualPath;
+            if (bundle == "js")
+                virtualPath = JsVirtualPath;
+            else
+                virtualPath = CssVirtualPath;
+
+            return Content(BundleTable.Bundles.ResolveBundleUrl(virtualPath), "text/plain");
         }
     }
 }

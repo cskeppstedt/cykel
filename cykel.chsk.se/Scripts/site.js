@@ -9,6 +9,11 @@
                 window.viewModel.updateReady(true);
             }
         }, false);
+
+        window.applicationCache.addEventListener('cached', function (e) {
+            window.location.reload();
+        }, false);
+
     }
 
     $('#searchHelp').find('a').click(function () {
@@ -19,17 +24,25 @@
 
     // signalr connection
 
-    var myHub = $.connection.defaultHub;
-
     setTimeout(function () {
-        $.connection.hub.start();
-    }, 100);
+        $.connection.hub.logging = true;
+        var myHub = $.connection.defaultHub;
 
-    myHub.onDataUpdated = function (data) {
-        ko.mapping.fromJS(data, window.viewModel);
-        utils.saveStations(ko.mapping.toJS(viewModel.stations));
+        $.connection.hub.start(function () {
+            utils.log('Connection to signalr established');
+        });
+        
+        myHub.onDataUpdated = function (data) {
+            utils.log('New data recieved');
 
-        if (!window.viewModel.initialized())
-            window.viewModel.initialized(true);
-    };
+            ko.mapping.fromJS(data, window.viewModel);
+            utils.saveStations(ko.mapping.toJS(viewModel.stations));
+
+            if (!window.viewModel.initialized()) {
+                utils.log('Initializing model');
+                window.viewModel.initialized(true);
+            }
+        };
+
+    }, 500);
 });

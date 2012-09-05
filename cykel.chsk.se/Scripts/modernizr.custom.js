@@ -1,5 +1,5 @@
-﻿/* Modernizr 2.6.1 (Custom Build) | MIT & BSD
- * Build: http://modernizr.com/download/#-input-inputtypes-localstorage-geolocation-shiv-load
+﻿/* Modernizr 2.6.2 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-applicationcache-history-input-inputtypes-localstorage-geolocation-touch-shiv-mq-teststyles-prefixes-load
  */
 ;
 
@@ -7,7 +7,7 @@
 
 window.Modernizr = (function (window, document, undefined) {
 
-    var version = '2.6.1',
+    var version = '2.6.2',
 
     Modernizr = {},
 
@@ -22,7 +22,13 @@ window.Modernizr = (function (window, document, undefined) {
 
     smile = ':)',
 
-    toString = {}.toString, tests = {},
+    toString = {}.toString,
+
+    prefixes = ' -webkit- -moz- -o- -ms- '.split(' '),
+
+
+
+    tests = {},
     inputs = {},
     attrs = {},
 
@@ -33,7 +39,63 @@ window.Modernizr = (function (window, document, undefined) {
     featureName,
 
 
+    injectElementWithStyles = function (rule, callback, nodes, testnames) {
 
+        var style, ret, node, docOverflow,
+            div = document.createElement('div'),
+                  body = document.body,
+                  fakeBody = body || document.createElement('body');
+
+        if (parseInt(nodes, 10)) {
+            while (nodes--) {
+                node = document.createElement('div');
+                node.id = testnames ? testnames[nodes] : mod + (nodes + 1);
+                div.appendChild(node);
+            }
+        }
+
+        style = ['&#173;', '<style id="s', mod, '">', rule, '</style>'].join('');
+        div.id = mod;
+        (body ? div : fakeBody).innerHTML += style;
+        fakeBody.appendChild(div);
+        if (!body) {
+            fakeBody.style.background = '';
+            fakeBody.style.overflow = 'hidden';
+            docOverflow = docElement.style.overflow;
+            docElement.style.overflow = 'hidden';
+            docElement.appendChild(fakeBody);
+        }
+
+        ret = callback(div, rule);
+        if (!body) {
+            fakeBody.parentNode.removeChild(fakeBody);
+            docElement.style.overflow = docOverflow;
+        } else {
+            div.parentNode.removeChild(div);
+        }
+
+        return !!ret;
+
+    },
+
+    testMediaQuery = function (mq) {
+
+        var matchMedia = window.matchMedia || window.msMatchMedia;
+        if (matchMedia) {
+            return matchMedia(mq).matches;
+        }
+
+        var bool;
+
+        injectElementWithStyles('@media ' + mq + ' { #' + mod + ' { position: absolute; } }', function (node) {
+            bool = (window.getComputedStyle ?
+                      getComputedStyle(node, null) :
+                      node.currentStyle)['position'] == 'absolute';
+        });
+
+        return bool;
+
+    },
     _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
 
     if (!is(_hasOwnProperty, 'undefined') && !is(_hasOwnProperty.call, 'undefined')) {
@@ -123,12 +185,33 @@ window.Modernizr = (function (window, document, undefined) {
         }
         return false;
     }
+    tests['touch'] = function () {
+        var bool;
+
+        if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+            bool = true;
+        } else {
+            injectElementWithStyles(['@media (', prefixes.join('touch-enabled),('), mod, ')', '{#modernizr{top:9px;position:absolute}}'].join(''), function (node) {
+                bool = node.offsetTop === 9;
+            });
+        }
+
+        return bool;
+    };
 
 
 
     tests['geolocation'] = function () {
         return 'geolocation' in navigator;
     };
+
+
+    tests['history'] = function () {
+        return !!(window.history && history.pushState);
+    };
+
+
+
     tests['localstorage'] = function () {
         try {
             localStorage.setItem(mod, mod);
@@ -137,6 +220,9 @@ window.Modernizr = (function (window, document, undefined) {
         } catch (e) {
             return false;
         }
+    };
+    tests['applicationcache'] = function () {
+        return !!window.applicationCache;
     };
 
 
@@ -216,7 +302,7 @@ window.Modernizr = (function (window, document, undefined) {
 
             test = typeof test == 'function' ? test() : test;
 
-            if (enableClasses) {
+            if (typeof enableClasses !== "undefined" && enableClasses) {
                 docElement.className += ' ' + (test ? '' : 'no-') + feature;
             }
             Modernizr[feature] = test;
@@ -235,7 +321,7 @@ window.Modernizr = (function (window, document, undefined) {
 
         var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
 
-        var saveClones = /^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i;
+        var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
 
         var supportsHtml5Styles;
 
@@ -399,7 +485,10 @@ window.Modernizr = (function (window, document, undefined) {
 
     Modernizr._version = version;
 
+    Modernizr._prefixes = prefixes;
 
+    Modernizr.mq = testMediaQuery;
+    Modernizr.testStyles = injectElementWithStyles;
     return Modernizr;
 
 })(this, this.document);
