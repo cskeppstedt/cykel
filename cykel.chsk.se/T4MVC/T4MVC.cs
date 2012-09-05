@@ -307,12 +307,15 @@ namespace Links {
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
                       
+        public static readonly string appcache_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/appcache.min.js") ? Url("appcache.min.js") : Url("appcache.js");
+                      
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
                       
         public static readonly string google_maps_v3_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/google.maps-v3-vsdoc.min.js") ? Url("google.maps-v3-vsdoc.min.js") : Url("google.maps-v3-vsdoc.js");
                       
         public static readonly string jquery_1_6_4_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.4-vsdoc.min.js") ? Url("jquery-1.6.4-vsdoc.min.js") : Url("jquery-1.6.4-vsdoc.js");
                       
+        public static readonly string jquery_min_js = Url("jquery.min.js");
         public static readonly string jquery_signalR_0_5_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-0.5.2.min.js") ? Url("jquery.signalR-0.5.2.min.js") : Url("jquery.signalR-0.5.2.js");
                       
         public static readonly string knockout_2_1_0_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.1.0.debug.min.js") ? Url("knockout-2.1.0.debug.min.js") : Url("knockout-2.1.0.debug.js");
@@ -320,6 +323,8 @@ namespace Links {
         public static readonly string knockout_2_1_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.1.0.min.js") ? Url("knockout-2.1.0.min.js") : Url("knockout-2.1.0.js");
                       
         public static readonly string knockout_mapping_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-mapping.min.js") ? Url("knockout-mapping.min.js") : Url("knockout-mapping.js");
+                      
+        public static readonly string models_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/models.min.js") ? Url("models.min.js") : Url("models.js");
                       
         public static readonly string modernizr_2_5_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.5.3.min.js") ? Url("modernizr-2.5.3.min.js") : Url("modernizr-2.5.3.js");
                       

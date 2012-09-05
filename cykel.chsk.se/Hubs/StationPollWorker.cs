@@ -64,18 +64,23 @@ namespace cykel.chsk.se.Hubs
             }
         }
 
-        protected async Task<CitybikesApiModel> Poll()
+        protected Task<CitybikesApiModel> Poll()
+        {
+            return Task.Factory.StartNew(() => GetModel());
+        }
+
+        private CitybikesApiModel GetModel()
         {
             var requestUri = new Uri("http://api.citybik.es/goteborg.json");
             var request = (HttpWebRequest)WebRequest.Create(requestUri);
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "application/json";
-            
-            var response = await request.GetResponseAsync();
-            
+
+            var response = request.GetResponse();
+
             using (var stream = new StreamReader(response.GetResponseStream()))
             {
-                string json = await stream.ReadToEndAsync();
+                string json = stream.ReadToEnd();
                 var deserialized = Newtonsoft.Json.JsonConvert.DeserializeObject<CitybikesApiModel>(json);
 
                 foreach (var model in deserialized)
