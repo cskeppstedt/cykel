@@ -23,7 +23,7 @@
 
     setTimeout(function () {
         $.connection.hub.start();
-    }, 500);
+    }, 100);
 
     myHub.onDataUpdated = function (data) {
         ko.mapping.fromJS(data, window.viewModel);

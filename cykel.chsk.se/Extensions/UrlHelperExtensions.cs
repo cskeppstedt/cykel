@@ -24,13 +24,21 @@ namespace cykel.chsk.se.Extensions
 
         private static string BundleUrl(UrlHelper helper, string url, string action)
         {
-            string version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
-            string bundleUrl = "/Bundles/" + action + "/" + version;
-            
-            if (EnableCloudfront)
-                return ConfigurationManager.AppSettings["cloudfront.baseurl"] + bundleUrl;
+            string baseUrl;
+            string version;
 
-            return bundleUrl;
+            if (EnableCloudfront)
+            {
+                baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
+                version = "036";
+            }
+            else
+            {
+                baseUrl = "";
+                version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
+            }
+            
+            return baseUrl + "/Bundles/" + action + "/" + version;
         }
 
         public static MvcHtmlString ScriptsBundleUrl(this UrlHelper helper)

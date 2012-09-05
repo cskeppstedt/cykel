@@ -15,8 +15,7 @@ namespace cykel.chsk.se
                 .Include("~/Scripts/jquery.signalR-0.5.3.js")
                 .Include("~/Scripts/utils.js")
                 .Include("~/Scripts/models.js")
-                .Include("~/Scripts/site.js")
-                .Include("~/Scripts/appcache.js"));
+                .Include("~/Scripts/site.js"));
             
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include("~/Content/bootstrap.css")
