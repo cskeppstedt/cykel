@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cykel.chsk.se.Properties;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -10,26 +11,14 @@ namespace cykel.chsk.se.Extensions
 {
     public static class UrlHelperExtensions
     {
-        private static bool EnableCloudfront
-        {
-            get
-            {
-                string setting = ConfigurationManager.AppSettings["EnableCloudfront"];
-                if (setting == null)
-                    return false;
-
-                return setting.Equals(bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
-            }
-        }
-
         private static string BundleUrl(UrlHelper helper, string url, string action)
         {
             string baseUrl;
             string version;
 
-            if (EnableCloudfront)
+            if (Settings.Default.EnableCloudfront)
             {
-                baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
+                baseUrl = Settings.Default.CloudfrontBaseurl;
                 version = "036";
             }
             else
@@ -58,9 +47,9 @@ namespace cykel.chsk.se.Extensions
             if (!absolutePath.StartsWith("/"))
                 absolutePath = "/" + absolutePath;
 
-            if (EnableCloudfront)
+            if (Settings.Default.EnableCloudfront)
             {
-                string baseUrl = ConfigurationManager.AppSettings["cloudfront.baseurl"];
+                string baseUrl = Settings.Default.CloudfrontBaseurl;
                 return new MvcHtmlString(baseUrl + absolutePath);
             }
             else

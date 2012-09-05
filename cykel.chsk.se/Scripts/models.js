@@ -44,6 +44,16 @@
         self.isVisible = settings.isVisible;
     },
 
+    capability: function (title, value) {
+        this.title = title;
+        if (value === true)
+            this.value = 'Ja';
+        else if (value === false)
+            this.value = 'Nej';
+        else
+            this.value = ko.utils.unwrapObservable(value);
+    },
+
     searchResultModel: function (station, distance, nr) {
         var self = this;
         self.station = station;
@@ -187,5 +197,11 @@
         self.toggleFollow = function () {
             self.isFollowing(!self.isFollowing());
         };
+
+        self.capabilities = ko.observableArray([
+            new models.capability('Application cache', Modernizr.applicationcache),
+            new models.capability('Local storage', Modernizr.localstorage),
+            new models.capability('Geolocation', Modernizr.geolocation)
+        ]);
     }
 };

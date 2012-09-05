@@ -21,6 +21,10 @@ window.utils = (function () {
     var _geocoder = new google.maps.Geocoder();
 
     var fixMapSize = function () {
+        if (window.map)
+            google.maps.event.trigger(window.map, 'resize');
+        return;
+        /*
         var $map_canvas = $('#map_canvas');
         var height = window.innerHeight - $map_canvas.position().top - 20;
         if (height < 20)
@@ -29,7 +33,7 @@ window.utils = (function () {
         $map_canvas.height(height);
 
         if (window.map)
-            google.maps.event.trigger(window.map, 'resize');
+            google.maps.event.trigger(window.map, 'resize');*/
     };
 
     $(window).resize(fixMapSize);

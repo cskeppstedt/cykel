@@ -16,7 +16,7 @@
 
     }
 
-    $('#searchHelp').find('a').click(function () {
+    $('.sidebar').find('a').click(function () {
         window.viewModel.searchMap($(this).text());
         window.viewModel.search();
         return false;

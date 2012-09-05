@@ -1,4 +1,6 @@
-﻿using System;
+﻿using cykel.chsk.se.Models;
+using cykel.chsk.se.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,12 @@ namespace cykel.chsk.se.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            var model = new IndexModel
+            {
+                PollIntervalFriendlyString = string.Format("{0} sekunders", Settings.Default.ApiPollInterval.TotalSeconds)
+            };
+            
+            return View(model);
         }
     }
 }
