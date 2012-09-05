@@ -2,7 +2,7 @@
     window.viewModel = new models.viewModel();
     ko.applyBindings(window.viewModel);
 
-    if (window.applicationCache) {
+    if (Modernizr.applicationcache) {
         window.applicationCache.addEventListener('updateready', function (e) {
             if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
                 window.applicationCache.swapCache();
