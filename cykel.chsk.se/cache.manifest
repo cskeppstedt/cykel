@@ -3,10 +3,14 @@
 CACHE:
 # http://d1ym5253oqhv2q.cloudfront.net/Bundles/Styles/036
 # http://d1ym5253oqhv2q.cloudfront.net/Bundles/Scripts/036
+
 favicon.ico
 Bundles/Styles/ifSaY2l-3vhS4i3rPYrRKi5vdplUPs-NQLfaV57hsOQ1
 Bundles/Scripts/FyNBa0dNTNvOgaKiBabGI1Bn4crFAVUrUo0V2DGloYI1
+
 http://fonts.googleapis.com/css?family=EB+Garamond
+http://themes.googleusercontent.com/static/fonts/ebgaramond/v4/kYZt1bJ8UsGAPRGnkXPeFYbN6UDyHWBl620a-IRfuBk.woff
+
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/glyphicons-halflings.png
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/glyphicons-halflings-white.png
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/markers-1.png
@@ -19,6 +23,7 @@ http://d1ym5253oqhv2q.cloudfront.net/Content/images/touch-icon-v1-114.png
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/touch-icon-v1-144.png
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/touch-icon-v1-57.png
 http://d1ym5253oqhv2q.cloudfront.net/Content/images/touch-icon-v1-72.png
+
 http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js
 
 NETWORK:
