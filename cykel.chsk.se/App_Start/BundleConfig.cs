@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using cykel.chsk.se.Properties;
+using System.Web;
 using System.Web.Optimization;
 
 namespace cykel.chsk.se
@@ -7,7 +8,7 @@ namespace cykel.chsk.se
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Scripts/js")
+            bundles.Add(new ScriptBundle(Settings.Default.JsBundlePath)
                 .Include("~/Scripts/modernizr.custom.js")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/knockout-2.1.0.js")
@@ -16,8 +17,8 @@ namespace cykel.chsk.se
                 .Include("~/Scripts/utils.js")
                 .Include("~/Scripts/models.js")
                 .Include("~/Scripts/site.js"));
-            
-            bundles.Add(new StyleBundle("~/Content/css")
+
+            bundles.Add(new StyleBundle(Settings.Default.CssBundlePath)
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/site.css")
                 .Include("~/Content/bootstrap-responsive.css"));

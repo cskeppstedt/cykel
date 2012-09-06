@@ -59,5 +59,23 @@ namespace cykel.chsk.se.Properties {
                 return ((bool)(this["EnableBundles"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("~/Scripts/js")]
+        public string JsBundlePath {
+            get {
+                return ((string)(this["JsBundlePath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("~/Scripts/css")]
+        public string CssBundlePath {
+            get {
+                return ((string)(this["CssBundlePath"]));
+            }
+        }
     }
 }

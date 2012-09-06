@@ -32,13 +32,13 @@ namespace cykel.chsk.se.Extensions
 
         public static MvcHtmlString ScriptsBundleUrl(this UrlHelper helper)
         {
-            string url = BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js");
+            string url = BundleTable.Bundles.ResolveBundleUrl(Settings.Default.JsBundlePath);
             return new MvcHtmlString(BundleUrl(helper, url, "Scripts"));
         }
 
         public static MvcHtmlString StylesBundleUrl(this UrlHelper helper)
         {
-            string url = BundleTable.Bundles.ResolveBundleUrl("~/Content/css");
+            string url = BundleTable.Bundles.ResolveBundleUrl(Settings.Default.CssBundlePath);
             return new MvcHtmlString(BundleUrl(helper, url, "Styles"));
         }
 

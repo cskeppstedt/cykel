@@ -14,5 +14,11 @@
     <Setting Name="EnableBundles" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="JsBundlePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">~/Scripts/js</Value>
+    </Setting>
+    <Setting Name="CssBundlePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">~/Scripts/css</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

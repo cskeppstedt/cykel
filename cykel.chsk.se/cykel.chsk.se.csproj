@@ -136,7 +136,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\ManifestResult.cs" />
     <Compile Include="Models\StationModel.cs" />
     <Compile Include="Controllers\BundlesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
