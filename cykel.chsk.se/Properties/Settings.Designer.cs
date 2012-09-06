@@ -35,7 +35,7 @@ namespace cykel.chsk.se.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://d1ym5253oqhv2q.cloudfront.net")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://d3hookbjrsp69f.cloudfront.net")]
         public string CloudfrontBaseurl {
             get {
                 return ((string)(this["CloudfrontBaseurl"]));

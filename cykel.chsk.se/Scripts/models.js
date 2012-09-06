@@ -60,7 +60,7 @@
         self.distance = Math.round(distance);
         self.nr = nr;
 
-        var url = "http://d1ym5253oqhv2q.cloudfront.net/Content/images/markers-" + nr + ".png";
+        var url = "http://d3hookbjrsp69f.cloudfront.net/Content/images/markers-" + nr + ".png";
         self.marker = window.utils.makeMarker(station.getLocation(), station.name(), url);
 
         self.releaseMarker = function () {
