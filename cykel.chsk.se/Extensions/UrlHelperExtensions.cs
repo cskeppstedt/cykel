@@ -13,19 +13,11 @@ namespace cykel.chsk.se.Extensions
     {
         private static string BundleUrl(UrlHelper helper, string url, string action)
         {
-            string baseUrl;
-            string version;
+            string baseUrl = "";
+            string version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
 
             if (Settings.Default.EnableCloudfront)
-            {
                 baseUrl = Settings.Default.CloudfrontBaseurl;
-                version = "036";
-            }
-            else
-            {
-                baseUrl = "";
-                version = url.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Last();
-            }
             
             return baseUrl + "/Bundles/" + action + "/" + version;
         }
