@@ -71,7 +71,7 @@ namespace cykel.chsk.se.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("~/Scripts/css")]
+        [global::System.Configuration.DefaultSettingValueAttribute("~/Content/css")]
         public string CssBundlePath {
             get {
                 return ((string)(this["CssBundlePath"]));

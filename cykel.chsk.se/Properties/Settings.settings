@@ -18,7 +18,7 @@
       <Value Profile="(Default)">~/Scripts/js</Value>
     </Setting>
     <Setting Name="CssBundlePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">~/Scripts/css</Value>
+      <Value Profile="(Default)">~/Content/css</Value>
     </Setting>
   </Settings>
 </SettingsFile>
