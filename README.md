@@ -15,4 +15,4 @@ Some cool stuff inside:
 
 ## Hosted at
 
-http://cykel.chsk.se/ currently
+http://cykel.azurewebsites.net/ currently
